@@ -1,0 +1,17 @@
+# Go
+bin/
+dist/
+coverage.out
+coverage.html
+
+# Fuzzing
+testdata/fuzz/
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Nix / direnv
+.direnv/
+result

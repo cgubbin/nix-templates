@@ -1,0 +1,14 @@
+project:
+  type: default
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-fold: show
+  pdf:
+    toc: true
+    number-sections: true

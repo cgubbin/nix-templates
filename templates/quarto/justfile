@@ -1,0 +1,49 @@
+set shell := ["bash", "-cu"]
+
+qmd := "reports/report.qmd"
+kernel_name := "quarto-python"
+kernel_display := "Python 3.13 (quarto-python)"
+
+default:
+    @just --list
+
+sync:
+    uv sync --dev
+
+preview:
+    quarto preview {{qmd}}
+
+render:
+    quarto render {{qmd}}
+
+html:
+    quarto render {{qmd}} --to html
+
+pdf:
+    quarto render {{qmd}} --to pdf
+
+ipynb:
+    quarto render {{qmd}} --to ipynb
+
+notebook:
+    uv run jupyter lab
+
+kernel:
+    uv run python -m ipykernel install --user --name {{kernel_name}} --display-name {{kernel_display}}
+
+lint:
+    uv run ruff check .
+
+format:
+    uv run ruff format .
+
+typecheck:
+    uv run pyright
+
+check: lint typecheck
+
+clean:
+    find . -type d -name .ipynb_checkpoints -prune -exec rm -rf {} +
+    find . -type d -name __pycache__ -prune -exec rm -rf {} +
+    rm -rf .ruff_cache .pyright .quarto _site
+    rm -f reports/*.html reports/*.pdf reports/*.ipynb

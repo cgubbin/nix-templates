@@ -1,0 +1,14 @@
+set shell := ["bash", "-cu"]
+
+default:
+    @just --list
+
+pdf:
+    tectonic -X compile main.tex
+
+watch:
+    tectonic -X watch main.tex
+
+clean:
+    rm -rf build
+    rm -f *.pdf *.aux *.log *.out *.toc *.synctex.gz

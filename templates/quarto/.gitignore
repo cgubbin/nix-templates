@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pyright/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated notebooks
+reports/*.ipynb
+notebooks/*.ipynb
+
+# Quarto output
+.quarto/
+_site/
+*.html
+
+# Data
+data/*
+!data/.gitkeep
+
+# Assets placeholder
+assets/*
+!assets/.gitkeep
+
+# Nix / direnv
+.direnv/
+result
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

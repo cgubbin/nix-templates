@@ -1,0 +1,19 @@
+# Build output
+build/
+*.o
+*.a
+*.so
+*.so.*
+*.out
+
+# Generated metadata
+compile_commands.json
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Nix / direnv
+.direnv/
+result

@@ -1,0 +1,40 @@
+set shell := ["bash", "-cu"]
+
+default:
+    @just --list
+
+run *args:
+    go run ./cmd/my-project -- {{args}}
+
+build:
+    mkdir -p bin
+    go build -o ./bin/my-project ./cmd/my-project
+
+test:
+    go test ./...
+
+bench:
+    go test -bench=. ./...
+
+lint:
+    golangci-lint run
+
+fmt:
+    go fmt ./...
+
+vet:
+    go vet ./...
+
+check: fmt vet test lint
+
+watch:
+    go run github.com/cosmtrek/air
+
+nix-build:
+    nix build
+
+nix-check:
+    nix flake check
+
+clean:
+    rm -rf bin coverage.out coverage.html

@@ -1,0 +1,69 @@
+set shell := ["bash", "-cu"]
+
+build_dir := "build"
+generator := "Ninja"
+
+default:
+    @just --list
+
+# --- Configuration targets ---
+
+debug:
+    cmake -B {{build_dir}} -G {{generator}} -DCMAKE_BUILD_TYPE=Debug
+
+release:
+    cmake -B {{build_dir}} -G {{generator}} -DCMAKE_BUILD_TYPE=Release
+
+sanitize:
+    cmake -B {{build_dir}} -G {{generator}} \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DENABLE_SANITIZERS=ON
+
+reconfigure:
+    just clean
+    just debug
+
+# --- Build & run ---
+
+build:
+    cmake --build {{build_dir}}
+
+run:
+    {{build_dir}}/main
+
+# --- Testing ---
+
+test:
+    ctest --test-dir {{build_dir}} --output-on-failure
+
+# --- Benchmarking ---
+
+bench:
+    {{build_dir}}/bench_hello
+
+# --- Tooling ---
+
+format:
+    find src include tests bench -type f \( -name '*.cpp' -o -name '*.hpp' \) -exec clang-format -i {} +
+
+tidy:
+    clang-tidy src/*.cpp tests/*.cpp bench/*.cpp -- -Iinclude -std=c++20
+
+compdb:
+    ln -sf {{build_dir}}/compile_commands.json compile_commands.json
+
+# --- Utilities ---
+
+clean:
+    rm -rf {{build_dir}}
+    rm -f compile_commands.json
+
+# --- Convenience workflows ---
+
+dev: debug build compdb
+
+all: dev test
+
+release-build: release build
+
+sanitize-build: sanitize build test

@@ -1,0 +1,21 @@
+set shell := ["bash", "-cu"]
+
+default:
+    @just --list
+
+run:
+    ./scripts/hello
+
+lint:
+    shellcheck scripts/*
+
+fmt:
+    shfmt -w scripts test
+
+fmt-check:
+    shfmt -d scripts test
+
+test:
+    bats test
+
+check: fmt-check lint test

@@ -1,0 +1,11 @@
+# Test artifacts
+/tmp/
+
+# Nix / direnv
+.direnv/
+result
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

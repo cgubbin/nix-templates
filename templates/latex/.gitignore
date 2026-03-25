@@ -1,0 +1,19 @@
+# Build outputs
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Tectonic output
+build/
+
+# Nix / direnv
+.direnv/
+result
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

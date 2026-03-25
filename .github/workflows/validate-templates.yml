@@ -1,0 +1,59 @@
+name: Validate Templates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - c
+          - cpp
+          - rust
+          - go
+          - python-app
+          - python-lib
+          - quarto-python
+          - latex
+          - shell
+        include:
+          - template: c
+            check_cmd: nix develop -c bash -lc "make"
+          - template: cpp
+            check_cmd: nix develop -c bash -lc "just debug && just build"
+          - template: rust
+            check_cmd: nix develop -c bash -lc "just init && just test"
+          - template: go
+            check_cmd: nix develop -c bash -lc "just test"
+          - template: python-app
+            check_cmd: nix develop -c bash -lc "just sync && just test"
+          - template: python-lib
+            check_cmd: nix develop -c bash -lc "just sync && just test"
+          - template: quarto-python
+            check_cmd: nix develop -c bash -lc "just sync && just html"
+          - template: latex
+            check_cmd: nix develop -c bash -lc "just pdf"
+          - template: shell
+            check_cmd: nix develop -c bash -lc "just check"
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Instantiate template
+        run: |
+          rm -rf test-project
+          nix flake new test-project -t .#${{ matrix.template }}
+
+      - name: Validate template
+        working-directory: test-project
+        run: ${{ matrix.check_cmd }}

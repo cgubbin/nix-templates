@@ -1,0 +1,57 @@
+---
+title: "Example Report"
+author: "Your Name"
+jupyter: python3
+format:
+  html: default
+  pdf: default
+  ipynb: default
+---
+
+# Overview
+
+This report is authored in Quarto as plain text and executed with Jupyter.
+
+Because the source of truth is `.qmd`, it works well in Neovim and can still be rendered to HTML, PDF, or notebook output.
+
+# Example Plot
+
+```{python}
+# | label: fig-sine
+# | fig-cap: "Sine wave"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 10, 200)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.xlabel("x")
+plt.ylabel("sin(x)")
+plt.show()
+```
+
+# Example Table
+
+```{python}
+import pandas as pd
+
+df = pd.DataFrame(
+    {
+        "x": [1, 2, 3],
+        "y": [1, 4, 9],
+    }
+)
+
+df
+```
+
+# Notes
+
+You can render this document with:
+
+- `just preview`
+- `just html`
+- `just pdf`
+- `just ipynb`
