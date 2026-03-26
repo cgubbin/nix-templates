@@ -17,7 +17,9 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           python313
+          pyright
           python313Packages.uv
+          python313Packages.ruff
           python313Packages.ipykernel
           python313Packages.jupyterlab
           just

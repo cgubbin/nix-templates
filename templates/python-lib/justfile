@@ -9,14 +9,20 @@ sync:
 test:
     uv run pytest
 
+test-file file:
+    uv run pytest {{file}}
+
 lint:
-    uv run ruff check .
+    ruff check .
 
 format:
-    uv run ruff format .
+    ruff format .
 
 typecheck:
-    uv run pyright
+    pyright
+
+coverage:
+    uv run pytest --cov --cov-report=term-missing
 
 check: lint typecheck test
 
@@ -28,6 +34,9 @@ lock:
 
 tree:
     uv tree
+
+flake-check:
+    nix flake check
 
 clean:
     rm -rf .pytest_cache .ruff_cache .pyright htmlcov .coverage .coverage.*

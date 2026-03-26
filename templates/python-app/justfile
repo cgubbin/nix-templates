@@ -1,5 +1,14 @@
 set shell := ["bash", "-cu"]
 
+module_name := `python - <<'PY'
+import tomllib
+from pathlib import Path
+
+data = tomllib.loads(Path("pyproject.toml').read_text())
+name = data["project"]["name"]
+print(name.replace("-", "_"))
+PY`
+
 default:
     @just --list
 
@@ -7,19 +16,25 @@ sync:
     uv sync --dev
 
 run:
-    uv run my-project
+    uv run python -m {{module_name}}
 
 test:
     uv run pytest
 
-lint:
-    uv run ruff check .
+test-file file:
+    uv run pytest {{file}}
 
-format:
-    uv run ruff format .
+lint:
+    ruff check .
+
+fmt:
+    ruff format .
 
 typecheck:
-    uv run pyright
+    pyright
+
+coverage:
+    uv run pytest --cov --cov-report=term-missing
 
 check: lint typecheck test
 
@@ -31,6 +46,9 @@ lock:
 
 tree:
     uv tree
+
+flake-check:
+    nix flake check
 
 clean:
     rm -rf .pytest_cache .ruff_cache .pyright htmlcov .coverage .coverage.*
