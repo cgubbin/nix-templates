@@ -1,7 +1,8 @@
 [package]
 name = "my-project"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+rust-version = "1.85"
 description = "Rust project template with library and binary"
 license = "MIT"
 
@@ -32,3 +33,9 @@ debug = true
 [profile.release]
 codegen-units = 1
 lto = "thin"
+
+[workspace.metadata.release]
+tag = true
+push = true
+publish = true
+sign-commit = false
