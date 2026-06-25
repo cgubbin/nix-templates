@@ -34,6 +34,7 @@ lint:
 ci:
     just lint
     just test
+    just docs
     just flake-check
 
 # -----------------------
@@ -95,6 +96,7 @@ clean:
 release type:
     just preflight
     just test
+    just docs
     just lint
     just readme
 
