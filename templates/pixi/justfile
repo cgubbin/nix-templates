@@ -3,14 +3,11 @@ set shell := ["bash", "-cu"]
 default:
     @just --list
 
-sync:
-    uv sync --dev
+update:
+    pixi update
 
 test:
-    uv run pytest
-
-test-file file:
-    uv run pytest {{file}}
+    pixi run pytest
 
 lint:
     ruff check .
@@ -21,19 +18,13 @@ format:
 typecheck:
     pyright
 
-coverage:
-    uv run pytest --cov --cov-report=term-missing
-
 check: lint typecheck test
 
-notebook:
-    uv run jupyter lab
-
 lock:
-    uv lock
+    pixi lock
 
 tree:
-    uv tree
+    pixi tree
 
 flake-check:
     nix flake check
