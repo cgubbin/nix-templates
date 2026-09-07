@@ -12,6 +12,16 @@
         path = ./templates/python-lib;
         description = "Python library template";
       };
+                
+      uv = {
+        path = ./templates/uv;
+        description = "UV template";
+      };
+
+      pixi = {
+        path = ./templates/pixi;  
+        description = "Pixi template";
+      };
 
       rust = {
         path = ./templates/rust;

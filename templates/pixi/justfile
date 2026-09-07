@@ -1,0 +1,43 @@
+set shell := ["bash", "-cu"]
+
+default:
+    @just --list
+
+sync:
+    uv sync --dev
+
+test:
+    uv run pytest
+
+test-file file:
+    uv run pytest {{file}}
+
+lint:
+    ruff check .
+
+format:
+    ruff format .
+
+typecheck:
+    pyright
+
+coverage:
+    uv run pytest --cov --cov-report=term-missing
+
+check: lint typecheck test
+
+notebook:
+    uv run jupyter lab
+
+lock:
+    uv lock
+
+tree:
+    uv tree
+
+flake-check:
+    nix flake check
+
+clean:
+    rm -rf .pytest_cache .ruff_cache .pyright htmlcov .coverage .coverage.*
+    find . -type d -name __pycache__ -prune -exec rm -rf {} +
