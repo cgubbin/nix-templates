@@ -1,5 +1,5 @@
 {
-  description = "Python 3.13 project template with uv";
+  description = "Python 3.13 project template with pixi";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
@@ -25,20 +25,20 @@
           just
         ];
 
-        shellHook = ''
-          echo "Entered Python 3.13 development shell"
-
-          if [ -f pyproject.toml ]; then
-            if [ ! -d .venv ]; then
-              echo "[python] creating venv"
-              [ -f .venv/bin/activate ] || uv venv .venv
-
-              echo "[python] syncing deps"
-              uv sync
-            fi
-            . ./.venv/bin/activate
-          fi
-        '';
+    #     shellHook = ''
+    #       echo "Entered Python 3.13 development shell"
+    #
+    #       if [ -f pyproject.toml ]; then
+    #         if [ ! -d .venv ]; then
+    #           echo "[python] creating venv"
+    #           [ -f .venv/bin/activate ] || uv venv .venv
+    #
+    #           echo "[python] syncing deps"
+    #           uv sync
+    #         fi
+    #         . ./.venv/bin/activate
+    #       fi
+    #     '';
       };
     });
   };
