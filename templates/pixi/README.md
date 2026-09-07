@@ -5,7 +5,7 @@
 This project is a Python 3.13 library template using:
 
 - Nix flakes for the system development environment
-- `uv` for Python dependency management
+- `pixi` for Python dependency management
 - `just` for task running
 - `pytest` for tests
 - `ruff` for linting and formatting
